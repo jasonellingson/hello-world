@@ -6,6 +6,7 @@ SELECT
     slips2.printed,
     slips3.intransit
 FROM VENDOR v WITH (NOLOCK)
+
 JOIN
     (SELECT v.VENDOR_ID, COUNT(ORD_ITEM_ID) as 'sourcing'
     FROM ORD_MASTER om WITH (NOLOCK)
