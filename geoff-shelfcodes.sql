@@ -7,6 +7,7 @@ SELECT
     shelf.intransit,
     shelf2.avgcreatedon
 FROM ORD_MASTER om WITH (NOLOCK)
+
 JOIN
     (
         SELECT om2.SHELF_CODE, COUNT(ORD_ITEM_ID) as 'intransit'
@@ -23,6 +24,7 @@ JOIN
             om2.SHELF_CODE
     )
     AS shelf ON om.SHELF_CODE = shelf.SHELF_CODE
+
 LEFT JOIN
     (
         SELECT om3.SHELF_CODE, DATEDIFF(day, om3.CREATED_ON, SYSDATETIME()) as 'avgcreatedon'
@@ -37,10 +39,12 @@ LEFT JOIN
             om3.MARKETPLACE IS NULL
     )
     AS shelf2 ON om.SHELF_CODE = shelf2.SHELF_CODE
+
 GROUP BY
-    om.SHELF_CODE,
-    shelf.intransit,
-    shelf2.avgcreatedon
+	om.SHELF_CODE,
+	shelf.intransit,
+	shelf2.avgcreatedon
+
 ORDER BY
 	om.SHELF_CODE
 
